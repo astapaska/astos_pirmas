@@ -1,0 +1,8 @@
+7
+ID;UZDUOTIS;PABAIGTA
+1;Paglostyti kate;0
+2;kit auzduotis;0
+3;Išspręsti ND;0
+4;nuuuu ir;0
+5;Išsimiegoti;0
+6;Dar paglostyti katę;0

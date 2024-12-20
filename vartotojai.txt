@@ -1,0 +1,6 @@
+VARDAS;PAVARDE;EL.PASTAS;GIMIMO METAI;SLAPTAZODIS
+Marija;Skuodiene;marija1992@gmail.com;1992;m1A2r1jA
+Giedrius;Gustas;giedriukas;;123456
+Antanas;Skuodzius;antanas.skuodzius@gmail.com;1984;antanas1234
+Jonas;;jonasb@gmail.com;1972;awdwadawdawd
+Anthony;Kiedis;negimiaulietuvoje@gmail.com;1976;a123

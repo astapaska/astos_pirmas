@@ -1,0 +1,150 @@
+Marius Vobalis 20:04
+count = 1 
+    while count <= 5:
+  count += 1
+ url = (str(main_url) + str(count))
+
+Marius Vobalis  to  Everyone 20:17
+loop = 0
+average = 0
+for price in prices:
+  
+    print(price.text.strip())
+    price = price.text.strip().replace("€", "")
+    average += int(price) 
+    loop += 1
+print(average/loop)
+from bs4 import BeautifulSoup
+from selenium import webdriver 
+from selenium.webdriver.chrome.options import Options 
+opcijos = Options()
+opcijos.add_argument('--incognito')
+opcijos.add_argument('--headless')
+driver = webdriver.Chrome(options=opcijos)
+url = "https://www.baldoras.lt/katalogas/valgomojo-stalai/"
+driver.get(url) 
+source = driver.page_source
+bs = BeautifulSoup(source, 'html.parser') 
+prices = bs.select('.product-card__prices')
+loop = 0
+average = 0
+for price in prices:
+  
+    print(price.text.strip())
+    price = price.text.strip().replace("€", "")
+    average += int(price) 
+    loop += 1
+    
+print(average/loop)
+
+Marius Vobalis  to  Everyone 20:43
+from bs4 import BeautifulSoup
+from selenium import webdriver 
+from selenium.webdriver.chrome.options import Options 
+from time import sleep
+from selenium.webdriver.common.by import By
+opcijos = Options()
+opcijos.add_argument('--incognito')
+# opcijos.add_argument('--headless')
+driver = webdriver.Chrome(options=opcijos)
+url = "https://www.baldoras.lt/katalogas/valgomojo-stalai/"
+driver.get(url) 
+source = driver.page_source
+bs = BeautifulSoup(source, 'html.parser')
+from bs4 import BeautifulSoup
+from selenium import webdriver 
+from selenium.webdriver.chrome.options import Options 
+from time import sleep
+from selenium.webdriver.common.by import By
+opcijos = Options()
+opcijos.add_argument('--incognito')
+# opcijos.add_argument('--headless')
+driver = webdriver.Chrome(options=opcijos)
+url = "https://www.baldoras.lt/katalogas/valgomojo-stalai/"
+driver.get(url) 
+source = driver.page_source
+bs = BeautifulSoup(source, 'html.parser') 
+prices = bs.select('.product-card__prices')
+loop = 0
+average = 0
+for price in prices:
+  
+    # print(price.text.strip())
+    price = price.text.strip().replace("€", "")
+    average += int(price) 
+    loop += 1
+    
+print(average/loop)
+next_button = driver.find_element(By.CSS_SELECTOR, '.page-link.page-link--with-arrow[aria-label="Next"]').click()
+
+Marius Vobalis  to  Everyone 21:13
+def get_content(main_url):
+    count = 1 
+    while count <= 5:
+           
+        url = (str(main_url) + str(count))
+        data = requests.get(url)
+        html = BeautifulSoup(data.text, "html.parser")
+        # print(url)
+        for box in html.select("ul.list > li"):
+            title = box.select_one(".desc-title")
+            title = title.text.strip() if title else "Nenurodyta"
+            # print(title)
+
+
+
+
+            query = """
+            INSERT INTO `items` (title, price, location, last_update, picture, type_of_offer, type)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+            cur.execute(query, (title, price, location, last_update, picture, type_of_offer, type))
+            cnx.commit()  # Commit the transaction
+            print("Duomenys pridėti sėkmingai!")
+           
+        count += 1
+
+Marius Vobalis  to  Everyone 21:31
+from bs4 import BeautifulSoup
+from selenium import webdriver 
+from selenium.webdriver.chrome.options import Options 
+from time import sleep
+from selenium.webdriver.common.by import By
+opcijos = Options()
+opcijos.add_argument('--incognito')
+# opcijos.add_argument('--headless')
+driver = webdriver.Chrome(options=opcijos)
+url = "https://www.baldoras.lt/katalogas/valgomojo-stalai/"
+driver.get(url) 
+average = 0
+loop = 0
+while True:
+    source = driver.page_source
+    bs = BeautifulSoup(source, 'html.parser')
+    
+    prices = bs.select('.product-card__prices')
+    
+    for price in prices:
+        price = price.text.strip().replace("€", "")
+        average += int(price)
+        loop += 1
+
+    try:
+        next_button = driver.find_element(By.CSS_SELECTOR, '.page-link.page-link--with-arrow[aria-label="Next"]')
+        next_button.click()
+        sleep(2) 
+    except:
+        print("No more pages.")
+        break
+print(average / loop)
+
+Marius Vobalis 21:45
+def get_content(url):
+    count = 1
+    while count <= 5:
+        new_url = f"{url}{count}"
+        print(new_url)
+        count += 1
+
+url = "https://www.example.com/page="
+get_content(url)

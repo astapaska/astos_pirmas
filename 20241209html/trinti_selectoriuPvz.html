@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS - Cascading Style Sheets</title>
+    <link href="style.css" rel="stylsheet">
+    <style>
+        /* Elemento Selektorius: */
+        /* CSS savybės */
+        h1 {color: rgb(255, 0, 0);        } 
+
+        span {color: rgb(173, 11, 173);     }
+
+        strong {color: orange;   }
+
+        /* Patikslintas kelias iki norimo elemento: */
+        h1 strong { color: green; }
+
+        /* Norodomas elementų kiekis neribotas */
+        html body h1 strong { color: blue;   }
+
+        /* Kai norime pasirinkti elementą pagal klasę rašome tašką */
+        .speciali-antraste { color: rgb(127, 127, 3);   }
+
+        /* Pirmo dukterinio elemento selektorius: */
+        ul li:first-child {  color: orange;   }
+
+        /* Paskutinio elemento selektorius */
+        ul li:last-child {color: purple;    } 
+
+        /* Selektorius pagal elemento poziciją */
+        ul li:nth-child(2) { color: green;  }
+
+        ul li:nth-child(3) { color: blue;  }
+        /* ID selektorius */
+        #unikalus {color: orange;  }
+
+        /* Elemento su klase selektorius: */
+        h1.tekstas { color: rgb(30, 202, 194);  }
+        
+        /* Teksto paryškinimas: */
+        p.tekstas { font-weight: bold; }
+        
+        /* Paverčia tekstą į šoną */
+        p.tekstas.paverstas {font-style: italic;   }
+        
+        /* Tiesioginio palikuonio selektorius: */
+        div > .paverstas { color:brown;    }
+
+        .melynas + div { font-weight: bold;        }
+    </style>
+</head>
+<body>
+    <h1>Lorem ipsum dolor sit amet.</h1>
+    <h1>
+        <span>Lorem ipsum dolor sit amet.</span>
+    </h1>
+    <h1>
+        <strong>Lorem ipsum dolor sit amet.</strong>
+    </h1>
+    <h1>Lorem ipsum dolor sit amet.</h1>
+    <h1>Lorem ipsum dolor sit amet.</h1>
+    <h1 class="speciali-antraste">Lorem ipsum dolor sit amet.</h1>
+
+    <ul>
+        <li>Pirmas</li>
+        <li>Antras</li>
+        <li>Trečias</li>
+        <li>Ketvirtas</li>
+    </ul>
+
+    <ul>
+        <li>Obuoliai</li>
+        <li>Citrinos</li>
+        <li>Agurkai</li>
+        <li>Pomidorai</li>
+    </ul>
+
+    <h1 id="unikalus">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet magnam inventore, minus repellat tempora commodi dolorum molestiae. Obcaecati, quaerat accusamus.</h1>
+
+    <p class="tekstas">BBBBoldas dolor sit amet consectetur adipisicing elit. Officia amet quae atque repudiandae odit nam quas aut, nobis necessitatibus cum?</p>
+    <p class="tekstas paverstas">paverstas dolor sit amet consectetur adipisicing elit. Officia amet quae atque repudiandae odit nam quas aut, nobis necessitatibus cum?</p>
+
+    <h1 class="tekstas">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, cumque!</h1>
+
+    <p class="paverstas">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure ad tempora, labore voluptatum dolores excepturi dolorem! In amet deleniti error perspiciatis cum officiis sapiente nihil.</p>
+
+    <div>
+        <p class="paverstas">
+            div > .paverstas yra rudas Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, quas.
+            <span class="paverstas">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum, ex!</span>
+        </p>
+    </div>
+
+    <div class="melynas"></div>
+    <div> .melynas + div Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum, eaque.</div>
+</body>
+</html>
