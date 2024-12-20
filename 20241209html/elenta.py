@@ -49,7 +49,7 @@ def insert_data(base, next) :
         # response.append({
         #       "name" : name,
         #       "photo_adr": photo_adr,
-        #     "price" : price,
+        #       "price" : price,
         #     "address": address,
         #     "description": description        })
 
