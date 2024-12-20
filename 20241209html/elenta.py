@@ -47,8 +47,8 @@ def insert_data(base, next) :
         cur.execute(f"INSERT INTO skelbimu_info (name, description, address, price, photo_adr) VALUES ('{name}', '{description}', '{address}', '{price}','{photo_adr}')")
 
         # response.append({
-        #     "name" : name,
-        #     "photo_adr": photo_adr,
+        #       "name" : name,
+        #       "photo_adr": photo_adr,
         #     "price" : price,
         #     "address": address,
         #     "description": description        })
