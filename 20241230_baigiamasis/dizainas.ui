@@ -38,7 +38,7 @@
      <rect>
       <x>20</x>
       <y>60</y>
-      <width>471</width>
+      <width>511</width>
       <height>21</height>
      </rect>
     </property>
@@ -77,7 +77,7 @@
      <rect>
       <x>20</x>
       <y>150</y>
-      <width>301</width>
+      <width>511</width>
       <height>61</height>
      </rect>
     </property>
@@ -86,8 +86,14 @@
       <family>Tahoma</family>
      </font>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>1</number>
     </property>
     <property name="text">
      <string/>

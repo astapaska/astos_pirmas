@@ -6,10 +6,6 @@ informacinis pranešimas apie netinkamai įvestą reikšmę.
 Surinkus visus kategorijos duomenis vartotojui atvaizduojamas informacinis pranešimas, kuriame nurodomas visų apdorotų skelbimų
 kiekis, bendra visų skelbimų vertė (kainų suma).
 Pabaigtą darbo kodą patalpinti į github repozitoriją kurios adresą atsiųskite el. paštu viliusramulionisvcs@gmail.com '''
-# https://elenta.lt/skelbimai/auto-moto/zemes-ukio-technika
-# www.elenta.lt
-# elenta.lt
-
 # yra validus URL
 # puslpis turi egzistuoti (grizta 200)
 # domenas yra elenta.lt + kategorija prasideda /skelbimai
@@ -17,10 +13,10 @@ Pabaigtą darbo kodą patalpinti į github repozitoriją kurios adresą atsiųsk
 import requests
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from dizainas import Ui_MainWindow
+from bs4 import BeautifulSoup
+from time import sleep
 
-data = requests.get("https://elenta.lt/skelbimai")
-print(data)
-
+# Funkcija linko validavimui
 def validate_url(input_url):
     try:
         requests.get(input_url)
@@ -34,7 +30,35 @@ def validate_url(input_url):
     if input_url.startswith("https://elenta.lt/skelbimai"):
         return True
     else : return False
+
+# Funkcija, kuria surenkami duomenys įrašymui į failą
+def get_data(base, next) :  
+    response = []
     
+    data = requests.get(base + next)
+    html = BeautifulSoup(data.text, "html.parser")
+
+    data = html.select('.units-list li')
+    next = html.select_one('[rel="next"]')
+
+    for listing in data:
+        
+        name = listing.select_one('a.ad-hyperlink')
+        name = name.text if name else "" 
+        
+        price = listing.select_one('.price-box')
+        price = price.text.replace("€","").replace(" ","")  if price else "0"
+                      
+        response.append({"name" : name.replace(";",","), "price" : price, })
+        
+    # Vykdo palaukimą sekundžių tikslumu 
+    sleep(1)
+    
+    if next :
+        next = html.select_one('[rel="next"]').attrs['href']
+        response += get_data(base, next)
+
+    return response    
 
 class Window(QMainWindow, Ui_MainWindow):
     def __init__(self) :
@@ -50,8 +74,27 @@ class Window(QMainWindow, Ui_MainWindow):
             self.atsakymas.setText("Įveskite teisingą puslapio adresą")
             return
         
-        #print("Nuoroda: ", linkas)
-        self.atsakymas.setText(f"Nurodytoje kategorijoje {linkas} yra: ")#\n {self.kiekis()} skelbimų, kuriuose nurodytų daiktų suma yra {self.suma()} Eur")
+        # linkas = "https://elenta.lt      /skelbimai/nt/sodai-sodybos"
+        
+        base_url = "https://elenta.lt"
+        next_url = linkas.replace("https://elenta.lt","") #"/skelbimai/nt/sodai-sodybos"
+
+        # Įrašymas į failą
+        f = open("skelbimai.csv", "w", encoding="utf8")
+
+        data = get_data(base_url, next_url)
+        f.write("Aprasymas;Kaina\n")
+
+        price_sum = 0
+        count = len(data)
+
+        for listing in data :
+            price_sum +=int((listing["price"]))
+            f.write(";".join(listing.values()) + "\n")
+        print(price_sum)
+        print(count)
+        
+        self.atsakymas.setText(f"Nurodytoje kategorijoje yra: \n{count} skelbimų, kuriuose nurodytų daiktų suma yra {price_sum} Eur")
     
 app = QApplication([])
 
@@ -59,55 +102,3 @@ window = Window()
 
 window.show()
 app.exec()
-
-
-# import requests
-# from bs4 import BeautifulSoup
-# from time import sleep
-
-# base_url = "https://elenta.lt"
-# next_url = "/skelbimai/auto-moto/zemes-ukio-technika"
-
-# # Funkcija, kuria surenkami duomenys įrašymui į failą
-# def insert_data(base, next) :  
-#     response = []
-    
-#     data = requests.get(base + next)
-#     html = BeautifulSoup(data.text, "html.parser")
-
-#     data = html.select('.units-list li')
-#     next = html.select_one('[rel="next"]')
-
-#     for listing in data:
-        
-#         name = listing.select_one('a.ad-hyperlink')
-#         name = name.text if name else "" 
-        
-#         price = listing.select_one('.price-box')
-#         price = price.text.replace("€","").replace(" ","")  if price else "0"
-                      
-#         response.append({"name" : name.replace(";",","), "price" : price, })
-        
-#     # Vykdo palaukimą sekundžių tikslumu 
-#     sleep(1)
-    
-#     if next :
-#         next = html.select_one('[rel="next"]').attrs['href']
-#         response += insert_data(base, next)
-
-#     return response
-
-# # Įrašymas į failą
-# f = open("skelbimai.csv", "w", encoding="utf8")
-
-# data = insert_data(base_url, next_url)
-# f.write("Aprasymas;Kaina\n")
-
-# price_sum = 0
-# count = len(data)
-
-# for listing in data :
-#     price_sum +=int((listing["price"]))
-#     f.write(";".join(listing.values()) + "\n")
-# print(price_sum)
-# print(count)
