@@ -7,8 +7,8 @@ Surinkus visus kategorijos duomenis vartotojui atvaizduojamas informacinis prane
 kiekis, bendra visų skelbimų vertė (kainų suma).
 Pabaigtą darbo kodą patalpinti į github repozitoriją kurios adresą atsiųskite el. paštu viliusramulionisvcs@gmail.com '''
 # yra validus URL
-# puslpis turi egzistuoti (grizta 200)
-# domenas yra elenta.lt + kategorija prasideda /skelbimai
+# puslapis turi egzistuoti (grįžta 200)
+# domenas yra elenta.lt + kategorija (prasideda /skelbimai)
 
 import requests
 from PyQt6.QtWidgets import QApplication, QMainWindow
@@ -73,11 +73,9 @@ class Window(QMainWindow, Ui_MainWindow):
         if validate_url(linkas) == False :
             self.atsakymas.setText("Įveskite teisingą puslapio adresą")
             return
-        
-        # linkas = "https://elenta.lt      /skelbimai/nt/sodai-sodybos"
-        
+               
         base_url = "https://elenta.lt"
-        next_url = linkas.replace("https://elenta.lt","") #"/skelbimai/nt/sodai-sodybos"
+        next_url = linkas.replace("https://elenta.lt","") 
 
         # Įrašymas į failą
         f = open("skelbimai.csv", "w", encoding="utf8")
@@ -94,6 +92,7 @@ class Window(QMainWindow, Ui_MainWindow):
         print(price_sum)
         print(count)
         
+        # Atsakymas vartotojui
         self.atsakymas.setText(f"Nurodytoje kategorijoje yra: \n{count} skelbimų, kuriuose nurodytų daiktų suma yra {price_sum} Eur")
     
 app = QApplication([])
